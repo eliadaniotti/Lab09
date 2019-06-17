@@ -24,20 +24,19 @@ public class Model {
 	
 	public void creaGrafo(int anno) {
 		grafo = new SimpleGraph<Country, DefaultEdge>(DefaultEdge.class);
-		//for(Country v : grafo.vertexSet())
-		
-		grafo.removeAllVertices(grafo.vertexSet());
 		
 		borders.removeAll(borders);
 		borders.addAll(b.getCountryPairs(anno));
 		
-		for(Country c : countries) {
+		for(Country c : countries)
 			c.setGrado(0);
-			grafo.addVertex(c);
-		}
-			
-		for(Border b : borders)
+	
+		for (Border b : borders) {
+			grafo.addVertex(b.getC1());
+			grafo.addVertex(b.getC2());
 			grafo.addEdge(b.getC1(), b.getC2());
+		}
+		
 		
 		for(Country co : countries)
 			co.setGrado(grafo.degreeOf(co));
