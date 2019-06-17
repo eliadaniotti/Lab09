@@ -29,6 +29,10 @@ public class BordersController {
 	@FXML // fx:id="txtResult"
 	private TextArea txtResult; // Value injected by FXMLLoader
 
+	public void setModel(Model model) {
+		this.model=model;
+	}
+	
 	@FXML
 	void doCalcolaConfini(ActionEvent event) {
 
