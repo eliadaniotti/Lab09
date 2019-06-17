@@ -1,21 +1,21 @@
 package it.polito.tdp.borders.model;
 
 public class Country {
-	String cod;
+	int cod;
 	String abbreviazione;
 	String nome;
 	
-	public Country(String cod, String abbreviazione, String nome) {
+	public Country(int cod, String abbreviazione, String nome) {
 		this.cod = cod;
 		this.abbreviazione = abbreviazione;
 		this.nome = nome;
 	}
 
-	public String getCod() {
+	public int getCod() {
 		return cod;
 	}
 
-	public void setCod(String cod) {
+	public void setCod(int cod) {
 		this.cod = cod;
 	}
 

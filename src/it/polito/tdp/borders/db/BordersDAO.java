@@ -10,10 +10,13 @@ import java.util.List;
 
 import it.polito.tdp.borders.model.Border;
 import it.polito.tdp.borders.model.Country;
+import it.polito.tdp.borders.model.CountryIdMap;
 
 
 public class BordersDAO {
-
+	
+	CountryIdMap cc = new CountryIdMap();
+	
 	public List<Country> loadAllCountries() {
 
 		String sql = "SELECT ccode, StateAbb, StateNme FROM country ORDER BY StateAbb";
@@ -25,7 +28,9 @@ public class BordersDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-				result.add(new Country(rs.getString("ccode"), rs.getString("StateAbb"), rs.getString("StateNme")));
+				Country c = new Country(rs.getInt("ccode"), rs.getString("StateAbb"), rs.getString("StateNme"));
+				result.add(c);
+				cc.add(c);
 				System.out.format("%d %s %s\n", rs.getInt("ccode"), rs.getString("StateAbb"), rs.getString("StateNme"));
 			}
 			
@@ -41,7 +46,7 @@ public class BordersDAO {
 
 	public List<Border> getCountryPairs(int anno) {
 
-		String sql = "select * FROM country AS c1, country AS c2, contiguity WHERE c1.CCode=contiguity.state1no AND c2.CCode=contiguity.state2no AND YEAR<=?";
+		String sql = "select state1no, state2no, year from contiguity where conttype=1 and year<=?";
 		List<Border> result = new ArrayList<Border>();
 		
 		try {
@@ -51,14 +56,8 @@ public class BordersDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-				/*for(Country c : this.loadAllCountries())
-					if(c.getCod().equals(rs.getString("state1no")))
-						for(Country cc : this.loadAllCountries())
-							if(c.getCod().equals(rs.getString("State2no"))) {
-								result.add(new Border(c,cc,rs.getInt("year")));
-								System.out.format("%d %d \n",rs.getInt("state1no"),rs.getInt("state2no"));
-							} */
-				
+				result.add(new Border(cc.get(rs.getInt("state1no")), cc.get(rs.getInt("state2no")), rs.getInt("year")));
+				System.out.format("%d %d\n", rs.getInt("state1no"), rs.getInt("state2no"));
 			}
 			
 			conn.close();

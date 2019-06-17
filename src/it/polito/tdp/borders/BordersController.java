@@ -5,8 +5,11 @@
 package it.polito.tdp.borders;
 
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.borders.model.Border;
 import it.polito.tdp.borders.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,14 +32,19 @@ public class BordersController {
 	@FXML // fx:id="txtResult"
 	private TextArea txtResult; // Value injected by FXMLLoader
 
+	List<Border> b = new LinkedList<Border>();
+	
 	public void setModel(Model model) {
 		this.model=model;
 	}
 	
 	@FXML
 	void doCalcolaConfini(ActionEvent event) {
-
-		txtResult.setText("Todo!");
+		int anno = Integer.parseInt(txtAnno.getText());
+		b.addAll(model.getAllBorders(anno));
+		
+		for(Border bb : b)
+			txtResult.appendText(bb.toString());
 	}
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
