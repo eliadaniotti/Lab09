@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import it.polito.tdp.borders.model.Border;
@@ -47,7 +48,7 @@ public class BordersDAO {
 	public List<Border> getCountryPairs(int anno) {
 
 		String sql = "select state1no, state2no, year from contiguity where conttype=1 and year<=?";
-		List<Border> result = new ArrayList<Border>();
+		List<Border> result = new LinkedList<Border>();
 		
 		try {
 			Connection conn = ConnectDB.getConnection();
