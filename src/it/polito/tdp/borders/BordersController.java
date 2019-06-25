@@ -64,7 +64,13 @@ public class BordersController {
 	
 	@FXML
 	void doVicini(ActionEvent Event) {
+		List<Country> vicini = new LinkedList<Country>();
 		Country c = boxStato.getValue();
+		
+		vicini.addAll(model.getVicini(c));
+		
+		for(Country cc : vicini)
+			txtResult.appendText(cc.toString() + ", ");
 	}
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete

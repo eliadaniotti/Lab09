@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
+import org.jgrapht.traverse.DepthFirstIterator;
+import org.jgrapht.traverse.GraphIterator;
 
 import it.polito.tdp.borders.db.BordersDAO;
 
@@ -50,6 +52,17 @@ public class Model {
 	
 	public List<Border> getAllBorders(int anno){
 		return borders;
+	}
+	
+	public List<Country> getVicini(Country c){
+		List<Country> vicini = new LinkedList<Country>();
+		GraphIterator<Country,DefaultEdge> dfi = new DepthFirstIterator<Country,DefaultEdge>(grafo, c);
+		
+		while (dfi.hasNext()) {
+			vicini.add(dfi.next());
+		}
+		
+		return vicini;
 	}
 	
 	

@@ -51,7 +51,7 @@ public class Country implements Comparable<Country>{
 
 	@Override
 	public String toString() {
-		return "Country [nome=" + nome + "]";
+		return nome;
 	}
 	
 	
